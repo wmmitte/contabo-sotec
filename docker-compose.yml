@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  web:
+    image: odoo:14.0
+    image_name: "odoo14"
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./wasscom_addons_customs:/mnt/extra-addons
+    environment:
+      - HOST=postgres12
+      - PORT=5432
+      - USER=sotec
+      - PASSWORD=sotec
+    networks:
+      - sotec
+networks:
+  sotec:
+    external: true
