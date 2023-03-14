@@ -14,7 +14,7 @@ services:
     environment:
       - HOST=postgres12
       - PORT=5432
-      - USER=sotec
+      - USER=odoo
       - PASSWORD=sotec
     networks:
       - sotec
@@ -22,27 +22,6 @@ services:
 networks:
   sotec:
     external: true
-
-# version: '3.7'
-# services:
-#   web:
-#     image: odoo:14.0
-#     ports:
-#       - "8069:8069"
-#     volumes:
-#       - ./odoo-web-data:/var/lib/odoo
-#       - ./config:/etc/odoo
-#       - ./wasscom_addons_customs:/mnt/extra-addons
-#     environment:
-#       - HOST=postgres12
-#       - PORT=5432
-#       - USER=mitte
-#       - PASSWORD=adminroot
-#     networks:
-#       - reseau_mitte
-# networks:
-#   reseau_mitte:
-#     external: true
 
 # version: '3.1'
 # services:
