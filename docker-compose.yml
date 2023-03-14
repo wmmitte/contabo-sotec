@@ -2,7 +2,7 @@ version: '3.7'
 services:
   web:
     image: odoo:14.0
-    image_name: "odoo14"
+    container_name: "odoo14"
     ports:
       - "8069:8069"
     volumes:
