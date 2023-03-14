@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  app:
+    image: mpts:laravel
+    container_name: visas
+    ports:
+      - 8081:80
+    user: ${USER_ID}:${GROUP_ID}
+    volumes:
+      - ./:/var/www/html
+    sysctls: net.ipv4.ip_unprivileged_port_start=0
+    networks:
+      - mpts-network
+networks:
+  mpts-network:
+    external: true
+
+# USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up
