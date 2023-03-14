@@ -41,5 +41,21 @@ mkdir -p ${_docker_volumes_folder}
 mkdir -p ${_docker_datas_folder}
 chmod -R 777 ${_docker_folder}
 
-# Telecharger elk
-#docker pull docker pull mitte/laravel8:1.0
+# Install httpd
+yum install -y httpd
+systemctl enable httpd
+# Install firewalld
+yum install -y firewalld
+systemctl enable firewalld
+reboot
+firewall-cmd --state
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+firewall-cmd --zone=public --permanent --add-port=8069/tcp
+firewall-cmd --list-all
+firewall-cmd --get-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --zone=public --list-ports
+firewall-cmd --permanent --zone=public --add-interface=docker0
+
+

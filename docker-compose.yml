@@ -16,6 +16,7 @@ services:
       - PASSWORD=sotec
     networks:
       - sotec
+    restart: always
 networks:
   sotec:
     external: true
