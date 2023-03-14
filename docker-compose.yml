@@ -3,6 +3,8 @@ services:
   web:
     image: odoo:14.0
     container_name: "odoo14"
+    links:
+      - postgres12
     ports:
       - "8069:8069"
     volumes:

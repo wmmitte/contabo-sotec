@@ -36,7 +36,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: pgadmin
     environment: 
-      - PGADMIN_DEFAULT_EMAIL=${_database_user}@gmaaail.com
+      - PGADMIN_DEFAULT_EMAIL=${_database_user}@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=${_database_password}
       - DEFAULT_SERVER=127.0.0.1
       - DEFAULT_SERVER_PORT=5050
