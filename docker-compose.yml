@@ -14,8 +14,8 @@ services:
     environment:
       - HOST=db
       - PORT=5432
-      - USER=sotec
-      - PASSWORD=sotec
+      - USER=odoo
+      - PASSWORD=odoo
     networks:
       - sotec
     restart: always
