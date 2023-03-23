@@ -41,7 +41,7 @@ chmod -R 777 ${_docker_folder}
 cd /root
 ln -s repo/docker-compose.yml odoo14/docker-compose.yml
 cd odoo14
-docker-compose up -d
+docker-compose -f /root/repo/docker-compose.yml up -d --force-recreate
 chmod -R 777 ${_docker_folder}
 
 
