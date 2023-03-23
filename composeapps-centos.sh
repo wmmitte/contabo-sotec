@@ -16,18 +16,18 @@ _tools_folder_path="/root/centos"
 _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
-rm -rf ${_docker_folder}
+rm -rf ${_docker_folder} || true
 
 # Configuration de la configuration
-mkdir -p ${_docker_volumes_folder}
-mkdir -p ${_docker_datas_folder}
-chmod -R 777 ${_docker_folder}
-chmod -R 777 ${_docker_volumes_folder}
-chmod -R 777 ${_docker_datas_folder}
+mkdir -p ${_docker_volumes_folder} || true
+mkdir -p ${_docker_datas_folder} || true
+chmod -R 777 ${_docker_folder} || true
+chmod -R 777 ${_docker_volumes_folder} || true
+chmod -R 777 ${_docker_datas_folder} || true
 
-rm -rf repo
+rm -rf repo || true
 cd /root
-rm -rf odoo14
+rm -rf odoo14 || true
 mkdir odoo14
 
 git clone https://github.com/wmmitte/contabo-sotec.git repo || true
@@ -103,7 +103,7 @@ upgrade_path =
 without_demo = False
 workers = 0
 EOF
-chmod -R 777 ${_docker_folder}
+chmod -R 777 ${_docker_folder} || true
 docker-compose -f /root/repo/docker-compose.yml up -d --force-recreate
 docker logs -f odoo14
 
