@@ -166,3 +166,5 @@ volumes:
 EOF
 cat ${_docker_datas_folder}/${_docker_odoo_dir}/docker-compose.yml
 docker-compose -f ${_docker_datas_folder}/${_docker_odoo_dir}/docker-compose.yml up -d --force-recreate
+chmod -R 777 ${_docker_volumes_folder}
+chmod -R 777 ${_docker_datas_folder}
