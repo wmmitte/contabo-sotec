@@ -17,6 +17,8 @@ _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
 rm -rf ${_docker_folder}
+rm -rf repo
+
 cd /root
 rm -rf odoo14
 mkdir odoo14
