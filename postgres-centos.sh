@@ -36,7 +36,7 @@ version: '3'
 services:
   postgres_:
     image: ${_docker_database}:${_docker_database_version}
-    container_name: ${_docker_database_dir}
+    container_name: db
     environment: 
       - POSTGRES_USER=${_database_user}
       - POSTGRES_PASSWORD=${_database_password}
