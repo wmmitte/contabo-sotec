@@ -9,7 +9,7 @@ services:
       - "8069:8069"
     volumes:
       - ./odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
+      # - ./config:/etc/odoo
       - ./wasscom_addons_customs:/mnt/extra-addons
     environment:
       - HOST=postgres12
