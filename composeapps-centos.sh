@@ -39,9 +39,9 @@ bash postgres-centos.sh || true
 bash pgadmin-centos.sh || true
 chmod -R 777 ${_docker_folder}
 cd /root
-ln -s repo/docker-compose.yml odoo14/docker-compose.yml
+#ln -s repo/docker-compose.yml odoo14/docker-compose.yml
 cd odoo14
-mkdir config
+mkdir -p config
 cat >config/odoo.conf <<EOF
 [options]
 addons_path = /mnt/extra-addons
@@ -103,8 +103,6 @@ upgrade_path =
 without_demo = False
 workers = 0
 EOF
-
-
 chmod -R 777 ${_docker_folder}
 docker-compose -f /root/repo/docker-compose.yml up -d --force-recreate
 docker logs -f odoo14
