@@ -18,8 +18,8 @@ _docker_datas_folder="${_docker_folder}/_datas"
 _webserver_config_file="/etc/nginx/conf.d/loadbalancer.conf"
 _tools_folder_path="/root/centos"
 _docker_external_netwok="sotec"
-_database_user="sotec"
-_database_password="sotec"
+_database_user="odoo"
+_database_password="odoo"
 _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 #_instance_other_paquets="vim nginx curl net-tools atop telnet policycoreutils policycoreutils-python setools setools-console setroubleshoot"
@@ -27,7 +27,9 @@ docker network create -d bridge ${_docker_external_netwok} || true
 # Configuration de la configuration
 mkdir -p ${_docker_datas_folder}/${_docker_database_dir}
 mkdir -p ${_docker_volumes_folder}/${_docker_database_dir}/${_docker_database_datas}
- 
+chmod -R 777 ${_docker_volumes_folder}
+chmod -R 777 ${_docker_datas_folder}
+
 cat >${_docker_datas_folder}/${_docker_database_dir}/docker-compose.yml <<EOF
 version: '3'
 

@@ -15,7 +15,7 @@ services:
       - HOST=postgres12
       - PORT=5432
       - USER=odoo
-      - PASSWORD=sotec
+      - PASSWORD=odoo
     networks:
       - sotec
     restart: always
