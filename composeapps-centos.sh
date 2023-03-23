@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #############################################################################################################
-## SCRIPT INSTALLATION DOCKER
+## SCRIPT INSTALLATION DES APPLICATIONS
 #############################################################################################################
 
 ### --------------------------------------------------------
@@ -15,17 +15,26 @@ _webserver_config_file="/etc/nginx/conf.d/loadbalancer.conf"
 _tools_folder_path="/root/centos"
 _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
-#_instance_other_paquets="vim nginx curl net-tools atop telnet policycoreutils policycoreutils-python setools setools-console setroubleshoot"
-#docker network create -d bridge mpts-network
-# Configuration de la configuration
-#mkdir -p ${_docker_datas_folder}/pgadmin4
-#mkdir -p ${_docker_volumes_folder}/pgadmin4
- 
-cd ${_docker_datas_folder}/postgres12
+
+rm -rf ${_docker_folder}
+cd /root
+rm -rf odoo14
+mkdir odoo14
+
+git clone https://github.com/wmmitte/contabo-sotec.git repo || true
+cd repo
+git pull
+chmod +x *.sh
+bash docker-centos.sh || true
+bash postgres-centos.sh || true
+bash pgadmin-centos.sh || true
+chmod -R 777 ${_docker_folder}
+cd ..
+ln -s repo/docker-compose.yml odoo14/docker-compose.yml
+cd odoo14
 docker-compose up -d
-docker ps
-cd ${_docker_datas_folder}/pgadmin4
-docker-compose up -d
-docker ps
+chmod -R 777 ${_docker_folder}
+
+
 
 
