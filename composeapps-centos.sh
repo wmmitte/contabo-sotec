@@ -38,7 +38,7 @@ bash docker-centos.sh || true
 bash postgres-centos.sh || true
 bash pgadmin-centos.sh || true
 chmod -R 777 ${_docker_folder}
-cd ..
+cd /root
 ln -s repo/docker-compose.yml odoo14/docker-compose.yml
 cd odoo14
 docker-compose up -d
