@@ -17,8 +17,15 @@ _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
 rm -rf ${_docker_folder}
-rm -rf repo
 
+# Configuration de la configuration
+mkdir -p ${_docker_volumes_folder}
+mkdir -p ${_docker_datas_folder}
+chmod -R 777 ${_docker_folder}
+chmod -R 777 ${_docker_volumes_folder}
+chmod -R 777 ${_docker_datas_folder}
+
+rm -rf repo
 cd /root
 rm -rf odoo14
 mkdir odoo14
