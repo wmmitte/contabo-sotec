@@ -18,13 +18,13 @@ _docker_postgres_datas="datas00"
 
 _pgadmin_global="pgadmin"
 _pgadmin_global_version="4"
-_pgadmin_global_exposed_port="12"
+_pgadmin_global_exposed_port="9191"
 _docker_pgadmin_dir="pgadmin4"
 _docker_pgadmin_datas="datas00"
 
 _odoo_global="odoo"
 _odoo_global_version="14.0"
-_odoo_global_exposed_port="9191"
+_odoo_global_exposed_port="8069"
 _docker_odoo_dir="odoo14"
 _docker_odoo_datas="datas00"
 
