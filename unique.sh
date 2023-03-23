@@ -45,7 +45,7 @@ _instance_other_paquets="vim curl net-tools atop telnet git"
 # Install Docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
-ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
 docker-compose --version
 systemctl start docker
 systemctl enable docker
