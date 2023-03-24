@@ -38,7 +38,9 @@ _database_user="sotec"
 _database_password="sotec"
 _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
+
 #_instance_other_paquets="vim nginx curl net-tools atop telnet policycoreutils policycoreutils-python setools setools-console setroubleshoot"
+yum install -y ${_instance_core_paquets} ${_instance_other_paquets}
 
 ####################################################################################################
 ## CONFIGURATION DE DOCKER
