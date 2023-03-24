@@ -9,7 +9,7 @@
 _os_version="centos 7"
 _elk_version="7.13.2"
 #_docker_folder="/opt/docker-home"
-_docker_folder="/srv/backupdatas"
+_docker_folder="/srv/backupdatas/docker-home"
 
 _postgres_global_database="postgres"
 _postgres_global_database_version="12"
