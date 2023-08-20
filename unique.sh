@@ -41,7 +41,7 @@ _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
 #_instance_other_paquets="vim nginx curl net-tools atop telnet policycoreutils policycoreutils-python setools setools-console setroubleshoot"
-yum update
+#yum update
 yum install -y ${_instance_core_paquets} ${_instance_other_paquets}
 
 ####################################################################################################
