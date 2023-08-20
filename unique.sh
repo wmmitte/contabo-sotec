@@ -41,6 +41,7 @@ _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
 #_instance_other_paquets="vim nginx curl net-tools atop telnet policycoreutils policycoreutils-python setools setools-console setroubleshoot"
+yum update
 yum install -y ${_instance_core_paquets} ${_instance_other_paquets}
 
 ####################################################################################################
@@ -87,7 +88,7 @@ networks:
     external: true
 EOF
 cat ${_docker_datas_folder}/${_docker_postgres_dir}/docker-compose.yml
-docker-compose -f ${_docker_datas_folder}/${_docker_postgres_dir}/docker-compose.yml up -d --force-recreate
+#docker-compose -f ${_docker_datas_folder}/${_docker_postgres_dir}/docker-compose.yml up -d --force-recreate
 
 ####################################################################################################
 ## CONFIGURATION DE PGADMIN
@@ -175,7 +176,7 @@ cat ${_docker_datas_folder}/${_docker_odoo_dir}/docker-compose.yml
 cat >${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/config/odoo.conf <<EOF
 [options]
 addons_path = /mnt/extra-addons
-admin_passwd = 
+admin_passwd = 123456789@!
 csv_internal_sep = ,
 data_dir = /var/lib/odoo
 db_host = db
