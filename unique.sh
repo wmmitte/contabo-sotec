@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #############################################################################################################
-## SCRIPT INSTALLATION DOCKER
+## SCRIPT INSTALLATION DOCKER KST
 #############################################################################################################
 
 ### --------------------------------------------------------
@@ -26,6 +26,7 @@ _docker_pgadmin_datas="datas00"
 _odoo_global="odoo"
 _odoo_global_version="14.0"
 _odoo_global_exposed_port="8069"
+_odoo_global_custom_addons_name="kst_addons_customs"
 _docker_odoo_dir="odoo14"
 _docker_odoo_datas="datas00"
 
@@ -33,9 +34,9 @@ _docker_volumes_folder="${_docker_folder}/_volumes"
 _docker_datas_folder="${_docker_folder}/_datas"
 _webserver_config_file="/etc/nginx/conf.d/loadbalancer.conf"
 _tools_folder_path="/root/centos"
-_docker_external_netwok="sotec"
-_database_user="sotec"
-_database_password="sotec"
+_docker_external_netwok="kst"
+_database_user="kst"
+_database_password="kst"
 _instance_core_paquets="docker"
 _instance_other_paquets="vim curl net-tools atop telnet git"
 
@@ -69,7 +70,7 @@ version: '3'
 
 services:
   postgres_:
-    image: ${_postgres_global_database}:${_postgres_global_database_version}
+    image: ${_postgres_global_database}:${_postgres_global_database_version}-bullseye
     container_name: ${_postgres_global_database}${_postgres_global_database_version}
     environment: 
       - POSTGRES_USER=${_database_user}
@@ -101,7 +102,7 @@ version: '3'
 
 services:
   pgadmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:7.5
     container_name: ${_pgadmin_global}${_pgadmin_global_version}
     environment: 
       - PGADMIN_DEFAULT_EMAIL=${_database_user}@gmail.com
@@ -127,13 +128,14 @@ networks:
     external: true
 EOF
 cat ${_docker_datas_folder}/${_docker_pgadmin_dir}/docker-compose.yml
-docker-compose -f ${_docker_datas_folder}/${_docker_pgadmin_dir}/docker-compose.yml up -d --force-recreate
+#docker-compose -f ${_docker_datas_folder}/${_docker_pgadmin_dir}/docker-compose.yml up -d --force-recreate
 
 ####################################################################################################
 ## CONFIGURATION DE ODOO14
 ####################################################################################################
 mkdir -p ${_docker_datas_folder}/${_docker_odoo_dir}
 mkdir -p ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}
+mkdir -p ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/config
 chmod -R 777 ${_docker_volumes_folder}
 chmod -R 777 ${_docker_datas_folder}
 
@@ -142,6 +144,7 @@ version: '3.1'
 services:
   web:
     image: ${_odoo_global}:${_odoo_global_version}
+    container_name: odoo${_odoo_global_version}
     depends_on:
       - db
     ports:
@@ -149,13 +152,14 @@ services:
     volumes:
       - ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/odoo-web-data:/var/lib/odoo
       - ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/config:/etc/odoo
-      - ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/wasscom_addons_customs:/mnt/extra-addons
+      - ${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/${_odoo_global_custom_addons_name}:/mnt/extra-addons
     environment:
       - HOST=db
       - USER=${_database_user}
       - PASSWORD=${_database_password}
   db:
-    image: postgres:${_postgres_global_database_version}
+    image: postgres:${_postgres_global_database_version}-bullseye
+    container_name: pg${_postgres_global_database_version}odoo${_odoo_global_version}
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=${_database_password}
@@ -168,6 +172,67 @@ volumes:
   odoo-db-data:
 EOF
 cat ${_docker_datas_folder}/${_docker_odoo_dir}/docker-compose.yml
+cat >${_docker_volumes_folder}/${_docker_odoo_dir}/${_docker_odoo_datas}/config/odoo.conf <<EOF
+[options]
+addons_path = /mnt/extra-addons
+admin_passwd = 
+csv_internal_sep = ,
+data_dir = /var/lib/odoo
+db_host = db
+db_maxconn = 64
+db_name = False
+db_password = ${_database_password}
+db_port = 5432
+db_sslmode = prefer
+db_template = template0
+db_user = ${_database_user}
+dbfilter = 
+demo = {}
+email_from = False
+geoip_database = /usr/share/GeoIP/GeoLite2-City.mmdb
+http_enable = True
+http_interface = 
+http_port = 8069
+import_partial = 
+limit_memory_hard = 2684354560
+limit_memory_soft = 2147483648
+limit_request = 8192
+limit_time_cpu = 60
+limit_time_real = 120
+limit_time_real_cron = -1
+list_db = True
+log_db = False
+log_db_level = warning
+log_handler = :INFO
+log_level = info
+logfile = 
+longpolling_port = 8072
+max_cron_threads = 2
+osv_memory_age_limit = False
+osv_memory_count_limit = False
+pg_path = 
+pidfile = 
+proxy_mode = False
+reportgz = False
+screencasts = 
+screenshots = /tmp/odoo_tests
+server_wide_modules = base,web
+smtp_password = False
+smtp_port = 25
+smtp_server = localhost
+smtp_ssl = False
+smtp_user = False
+syslog = False
+test_enable = False
+test_file = 
+test_tags = None
+transient_age_limit = 1.0
+translate_modules = ['all']
+unaccent = False
+upgrade_path = 
+without_demo = False
+workers = 0
+EOF
 docker-compose -f ${_docker_datas_folder}/${_docker_odoo_dir}/docker-compose.yml up -d --force-recreate
 chmod -R 777 ${_docker_volumes_folder}
 chmod -R 777 ${_docker_datas_folder}
